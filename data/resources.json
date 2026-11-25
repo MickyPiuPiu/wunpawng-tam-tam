@@ -88,5 +88,23 @@
     "pdf": "",
     "permission": "",
     "added": "2026-11-24"
+  },
+  {
+    "id": "gamung",
+    "title": "Gămung",
+    "author": "Nbwi Sut Aung (developer)",
+    "year": "",
+    "subject": "Apps & Learning Sites",
+    "topic": "Other Tools",
+    "language": "English",
+    "type": "Website",
+    "summary": "A free community app with posts and polls, public and private groups, a local marketplace (Gămung Mart), job listings (Gămung Jobs) and messaging. It's available on the web, iOS and Android.",
+    "contents": "",
+    "keywords": "community, app, marketplace, jobs, messaging",
+    "source": "Gămung",
+    "url": "https://gamung.app/",
+    "pdf": "",
+    "permission": "",
+    "added": "2026-11-24"
   }
 ]
