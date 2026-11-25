@@ -15,7 +15,8 @@
     "url": "https://www.scribd.com/doc/50528490/Wunpawng-Sha-Ni-a-Shacyen-Shaga-Ai-Lam",
     "pdf": "pdfs/wunpawng-sha-ni-a-shachyen-shaga-ai-lam.pdf",
     "permission": "",
-    "added": "2026-11-24"
+    "added": "2026-11-24",
+    "tool": "shachyen.html"
   },
   {
     "id": "kachin-jinghpaw-english-dictionary",
@@ -213,6 +214,25 @@
     "url": "https://legalaidnetwork.org/federal-law-academy-introduction/",
     "pdf": "",
     "permission": "",
+    "added": "2026-11-25"
+  },
+  {
+    "id": "shachyen-shaga-hkrang",
+    "title": "Shachyen Shaga Hkrang",
+    "author": "Wunpawng Tam Tam (based on Hkasha Uma Awng's booklet)",
+    "year": "2026",
+    "subject": "Society & Culture",
+    "topic": "Clans & Kinship",
+    "language": "English",
+    "type": "Website",
+    "summary": "An interactive kinship tool. Choose la or num and tap a group (tinang amyu, mayu, yuji, dama, kashu kahkri) to see what to call each relative in Jinghpaw. Enter two people's parents' clans and htinggaw to check whether a marriage is allowed by custom and how they should address each other. Draft: terms come from Wunpawng Sha Ni A Shachyen Shaga Ai Lam and should be checked with elders.",
+    "contents": "",
+    "keywords": "shachyen, shachyen shaga, kinship, mayu, dama, kahkri, katsa, marriage, clans, htinggaw, tool",
+    "source": "Wunpawng Tam Tam",
+    "url": "https://mickypiupiu.github.io/wunpawng-tam-tam/shachyen.html",
+    "pdf": "",
+    "permission": "",
+    "tool": "shachyen.html",
     "added": "2026-11-25"
   }
 ]

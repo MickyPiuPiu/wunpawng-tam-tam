@@ -82,6 +82,7 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
   <nav class="main" aria-label="Main">
     <a href="#home" data-nav="home">Home</a>
     <a href="#search" data-nav="search">Search</a>
+    <a href="shachyen.html">Shachyen</a>
     <a href="https://kachin-jinghpaw-dictionary.mickypiupiu.chatgpt.site/">Dictionary ↗</a>
     <a href="#about" data-nav="about">About</a>
     
@@ -142,6 +143,7 @@ function home(){
     <p class="eyebrow">Browse by subject</p><h2 style="font-size:32px">Subject shelves</h2>
     <div class="shelves">${Object.keys(TAX).map(s=>`<a class="shelf" href="#search" data-subject="${esc(s)}"><h3>${esc(s)}</h3><span>${esc(SUB_NOTE[s])}</span><span><strong>${count(s)}</strong> record${count(s)===1?'':'s'}</span></a>`).join('')}
       <a class="shelf" href="https://kachin-jinghpaw-dictionary.mickypiupiu.chatgpt.site/" style="background:var(--soft)"><h3>Jinghpaw ↔ English Dictionary</h3><span>12,093 entries, searchable both ways. Source: Rawang.org.</span><span><strong>Open dictionary ↗</strong></span></a>
+      <a class="shelf" href="shachyen.html" style="background:var(--soft)"><h3>Shachyen Shaga Hkrang</h3><span>Find what to call a relative, and check if a marriage is allowed.</span><span><strong>Open tool →</strong></span></a>
     </div>
   </div></section>
   <section class="band" style="padding-top:0"><div class="wrap"><h2 style="font-size:28px">Recently added</h2>
@@ -176,12 +178,12 @@ function search(){
 function detail(id){
   const r=recs().find(x=>x.id===id);
   if(!r)return `<section class="band"><div class="wrap">${loadNote()}<div class="empty">${S.loaded?'This record isn’t in the archive.':'Loading record…'} <a href="#search">Back to search</a></div></div></section>`;
-  const pdf=pdfPath(r.pdf),src=safeUrl(r.url);
+  const pdf=pdfPath(r.pdf),src=safeUrl(r.url),tool=/^[a-z0-9-]+\.html$/.test(r.tool||'')?r.tool:'';
   return `<section class="band"><div class="wrap" style="max-width:860px">
     <p class="meta"><a href="#search">Search</a> / ${esc(r.subject||'')}${r.topic?' / '+esc(r.topic):''}</p>
     <h1 style="font-size:clamp(30px,4.5vw,44px);margin-top:10px">${esc(r.title)}</h1>
     <p class="meta" style="font-size:17px;margin-top:8px">${esc(r.author||'Unknown author')}</p>
-    <div class="actions">${pdf?`<a class="btn" href="${pdf}">Read PDF</a>`:''}${src?`<a class="btn${pdf?' ghost':''}" href="${esc(src)}">Visit Source ↗</a>`:''}<button class="btn ghost" type="button" id="copyLink">Copy link to this record</button></div>
+    <div class="actions">${pdf?`<a class="btn" href="${pdf}">Read PDF</a>`:''}${src?`<a class="btn${pdf?' ghost':''}" href="${esc(src)}">Visit Source ↗</a>`:''}${tool?`<a class="btn ghost" href="${tool}">Try the Shachyen tool →</a>`:''}<button class="btn ghost" type="button" id="copyLink">Copy link to this record</button></div>
     <dl class="slip">${[['Author / organization',r.author],['Year',r.year||'Unknown'],['Language',r.language],['Type',r.type],['Subject',r.subject],['Topic',r.topic],['Source',r.source]].filter(x=>x[1]).map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
     ${r.summary?`<h2 style="font-size:24px">Summary</h2><p style="white-space:pre-line">${esc(r.summary)}</p>`:''}
     ${r.contents?`<h2 style="font-size:24px;margin-top:20px">Contents</h2><p style="white-space:pre-line">${esc(r.contents)}</p>`:''}

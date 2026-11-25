@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shachyen Shaga Hkrang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, respectful, like an elder explaining at the family table
+   IDEA: the five-group kinship map from the booklet, made tappable
+   PICTURE: the map itself, with tinang in the middle and each group a door
+   COLOUR and TYPE: forest green, cream, brass; Fraunces headings, Source Sans body
+   LAYOUT: choose la or num, tap a group on the map, read the terms; marriage check below */
+:root{color-scheme:light dark;
+--bg:light-dark(#F5EFE2,#111C16);--card:light-dark(#FFFBF3,#18271F);--ink:light-dark(#1E2A22,#ECE5D4);
+--mute:light-dark(#4A5A4F,#B3BCAF);--line:light-dark(#DDD3BF,#2C3D33);--green:light-dark(#1F3D2B,#9CC7A4);
+--band:light-dark(#1F3D2B,#0B1510);--brass:light-dark(#7A4E14,#E0B872);--soft:light-dark(#E8EFE6,#1C2E24);
+--mayu:light-dark(#DCEBE4,#16352B);--dama:light-dark(#F3E1D6,#3A2419);--sel:light-dark(#1F3D2B,#9CC7A4)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 'Source Sans 3',system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;line-height:1.1;margin:0;color:var(--green);text-wrap:balance}
+.wrap{max-width:980px;margin:0 auto;padding:0 max(4vw,16px)}
+header{background:var(--band);color:#F5EFE2;padding:clamp(24px,4vw,44px) 0 26px}
+header h1{color:#F5EFE2;font-size:clamp(30px,5vw,46px)}
+header p{color:#D9E2D6;max-width:62ch;margin:10px 0 0}
+.draft{display:inline-block;margin-top:14px;font-size:14px;background:rgba(224,184,114,.18);color:#F2DDB0;border-radius:8px;padding:6px 12px}
+.band{padding:clamp(24px,4vw,44px) 0}
+.step{font-size:14px;font-weight:700;color:var(--brass);margin:0 0 8px}
+.seg{display:inline-flex;border:1px solid var(--green);border-radius:12px;overflow:hidden}
+.seg button{min-height:48px;padding:0 22px;border:0;background:transparent;color:var(--green);font:700 16px 'Source Sans 3',sans-serif;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--green);color:var(--bg)}
+.map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px;max-width:760px}
+.g{border:1px solid var(--line);border-radius:14px;padding:14px;min-height:92px;background:var(--card);color:var(--ink);text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.g strong{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:20px;color:var(--green)}
+.g span{font-size:14px;color:var(--mute)}
+.g.mayu{background:var(--mayu)}.g.dama{background:var(--dama)}
+.g[aria-pressed=true]{outline:3px solid var(--sel);outline-offset:1px}
+.g.me{cursor:default;background:var(--band);border-color:var(--band)}.g.me strong{color:#F5EFE2}.g.me span{color:#D9E2D6}
+.arrowrow{grid-column:1/-1;text-align:center;font-size:14px;color:var(--mute)}
+.empty{visibility:hidden}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.panel{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(16px,3vw,26px)}
+.panel h2{font-size:28px}
+.def{margin:8px 0 16px;color:var(--mute)}
+input[type=search]{width:100%;height:48px;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:0 14px;margin-bottom:10px}
+.row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:6px 16px;align-items:baseline;border-top:1px solid var(--line);padding:12px 0}
+.row .who{font-weight:600}.row .who small{display:block;font-weight:400;color:var(--mute);font-size:14px}
+.row .term{font-family:Fraunces,Georgia,serif;font-size:22px;color:var(--green)}
+.row .sec{font-size:13px;color:var(--brass);white-space:nowrap}
+@media(max-width:600px){.map{grid-template-columns:repeat(2,minmax(0,1fr))}.empty{display:none}.g.me{grid-column:1/-1}.row{grid-template-columns:minmax(0,1fr) auto}.row .term{grid-column:1/-1}}
+.q{border-top:1px solid var(--line);padding:14px 0}
+.q p{margin:0 0 8px;font-weight:600}
+.yn{display:flex;gap:8px;flex-wrap:wrap}
+.yn button{min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 15px 'Source Sans 3',sans-serif;cursor:pointer}
+.yn button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:var(--bg)}
+.verdict{margin-top:14px;border-radius:12px;padding:16px 18px;font-size:17px;background:var(--soft)}
+.verdict.no{background:light-dark(#F6DED8,#3A1F19)}
+.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:600px){.people{grid-template-columns:minmax(0,1fr)}}
+fieldset{border:1px solid var(--line);border-radius:12px;padding:14px;margin:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:Fraunces,Georgia,serif;font-size:19px;color:var(--green);padding:0 6px}
+.people label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700;color:var(--green)}
+.people label small{font-weight:400;color:var(--mute)}
+.people input{height:46px;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.age{grid-column:1/-1}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-weight:600;cursor:pointer;color:var(--ink)}
+.pill:has(input:checked){border-color:var(--green);outline:2px solid var(--green)}
+.addr{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.addr h3{font-size:22px;margin-bottom:10px}
+.call{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:baseline;border-top:1px solid var(--line);padding:10px 0}
+.call .t{font-family:Fraunces,Georgia,serif;font-size:24px;color:var(--green)}
+.call small{grid-column:1/-1;color:var(--mute);font-size:13px}
+.actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
+.go,.ghost{min-height:48px;padding:0 22px;border-radius:10px;font:700 16px 'Source Sans 3',sans-serif;cursor:pointer;border:1px solid var(--green)}
+.go{background:var(--green);color:var(--bg)}.ghost{background:transparent;color:var(--green)}
+.err{grid-column:1/-1;margin:0;color:light-dark(#9B2C1C,#F0A08E);font-size:14px;min-height:1em}
+.verdict h3{font-size:22px;margin-bottom:8px}.verdict ul{margin:8px 0 0;padding-left:20px}.verdict li{margin:4px 0}.verdict li::first-letter{text-transform:uppercase}
+.verdict.ok{background:light-dark(#DCEBE4,#16352B)}.verdict.warn{background:light-dark(#F6EBD2,#3A2E14)}
+footer{color:var(--mute);font-size:14px;padding:8px 0 40px}
+footer a{color:var(--green)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="./" style="color:#E0B872;font-weight:700;text-decoration:none;display:inline-block;margin-bottom:12px">← Back to Wunpawng Tam Tam</a>
+  <h1>Shachyen Shaga Hkrang</h1>
+  <p>Find what to call a relative in Jinghpaw, and whether a marriage is allowed by custom. Choose who you are, then tap a group on the map.</p>
+  <span class="draft">Draft preview · terms from Hkasha Uma Awng's booklet · please check with elders</span>
+</div></header>
+
+<main class="wrap band">
+  <p class="step">Step 1 · I am</p>
+  <div class="seg" role="group" aria-label="Speaker">
+    <button type="button" data-sex="la" aria-pressed="true">La (man)</button>
+    <button type="button" data-sex="num" aria-pressed="false">Num (woman)</button>
+  </div>
+
+  <p class="step" style="margin-top:26px">Step 2 · Tap a group</p>
+  <div class="map" id="map"></div>
+
+  <section class="panel" id="panel" aria-live="polite"></section>
+
+  <section class="panel" id="marrySec">
+    <h2>Can we marry?</h2>
+    <p class="def">Enter both people’s parents. The check follows the booklet’s rules in sections I, II and XXIII.</p>
+    <datalist id="clans"><option>Marip</option><option>Lahtaw</option><option>Magawng</option><option>Chyangmaja</option><option>Nhkum</option><option>Maran</option><option>Kareng</option><option>Dureng</option><option>Lahpai</option><option>Jasen</option><option>Hkasha</option><option>Tangbau</option></datalist>
+    <form id="mForm" class="people">
+      <fieldset><legend>La (the man)</legend>
+        <label>Name <small>(optional)</small><input id="mName" autocomplete="off"></label>
+        <label>Father’s amyu (clan)<input id="mFA" list="clans" autocomplete="off" required></label>
+        <label>Father’s htinggaw<input id="mFH" autocomplete="off"></label>
+        <label>Mother’s amyu (clan)<input id="mMA" list="clans" autocomplete="off" required></label>
+        <label>Mother’s htinggaw<input id="mMH" autocomplete="off"></label>
+      </fieldset>
+      <fieldset><legend>Num (the woman)</legend>
+        <label>Name <small>(optional)</small><input id="wName" autocomplete="off"></label>
+        <label>Father’s amyu (clan)<input id="wFA" list="clans" autocomplete="off" required></label>
+        <label>Father’s htinggaw<input id="wFH" autocomplete="off"></label>
+        <label>Mother’s amyu (clan)<input id="wMA" list="clans" autocomplete="off" required></label>
+        <label>Mother’s htinggaw<input id="wMH" autocomplete="off"></label>
+      </fieldset>
+      <fieldset class="age"><legend>Who is older?</legend>
+        <div class="yn" role="radiogroup">
+          <label class="pill"><input type="radio" name="older" value="m" checked> La (the man)</label>
+          <label class="pill"><input type="radio" name="older" value="w"> Num (the woman)</label>
+        </div>
+      </fieldset>
+      <div class="actions"><button type="submit" class="go">Check</button><button type="button" class="ghost" id="mClear">Clear</button></div>
+      <p class="err" id="mErr" role="alert"></p>
+    </form>
+    <div id="mOut" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">Source: <em>Wunpawng Sha Ni A Shachyen Shaga Ai Lam</em> by Hkasha Uma Awng, sections V and VIII–XIV, XXIII. Terms differ between regions and families. When in doubt, ask an elder. Part of <a href="./">Wunpawng Tam Tam</a>.</div></footer>
+
+<script>
+{
+const GROUPS={
+  amyu:{name:'Tinang amyu',sub:'Your own clan',def:'Your father’s line: grandfathers, parents, brothers, sisters, children and grandchildren.',cls:''},
+  mayu:{name:'Mayu',sub:'Wife-giving side',def:'The clan your mother and your wife come from.',cls:'mayu'},
+  yuji:{name:'Yuji',sub:'Your mayu’s mayu',def:'“Yuji = tinang a mayu ni a mayu ni.” The clan that gives wives to your mayu. Yuji’s dama are your mayu.',cls:'mayu'},
+  dama:{name:'Dama',sub:'Wife-taking side',def:'The clan your sisters and daughters marry into. All dama women are kahkri to a man.',cls:'dama'},
+  kashu:{name:'Kashu kahkri',sub:'Dama’s side, one step on',def:'The families who married your kahkri daughters. They are called kashu, even if they are older.',cls:'dama'}
+};
+const T=[
+['amyu','la','Kaji a kawa','Grandfather’s father','Kaji ke','X a'],
+['amyu','la','Kawa','Father','Wa / Kawa','X a'],
+['amyu','la','Kawa a kahpu kanau','Father’s brothers','Kawa (wa ba, wa ji, wa doi…)','X a'],
+['amyu','la','Tinang hta shawng shangai ai ni','Older siblings','Hpu','X a'],
+['amyu','la','Tinang a hpang shangai ai ni','Younger brothers','Nau / Kanau','X a'],
+['amyu','la','Tinang a hpang shangai ai numsha','Younger sisters','Kanau / Kajan','X b'],
+['amyu','la','Kawa a kasha, tinang hta shawng shangai ai numsha','Older sisters','Kana','X b'],
+['amyu','la','Kaji dwi a kana / kanau','Grandfather’s sisters','Moi','X b'],
+['amyu','la','Kawa a kana / kanau','Father’s sisters','Kamoi','X b'],
+['amyu','la','Tinang shangai shaprat ai ni','Your children','Sha / Kasha','X a'],
+['amyu','la','Kasha a kasha','Grandchildren','Shu / Kashu','X a'],
+['amyu','la','Kashu a kasha','Great-grandchildren','Shu mashi','X a'],
+['amyu','num','Kaji a kawa','Grandfather’s father','Kaji ke','X a'],
+['amyu','num','Kawa','Father','Wa / Kawa','X a'],
+['amyu','num','Kawa a kahpu / kanau','Father’s brothers','Kawa (wa ba, wa bawk, wa doi…)','X a'],
+['amyu','num','Tinang hta shawng shangai ai ni','Older siblings','Kahpu','X a'],
+['amyu','num','Tinang a hpang shangai ai ni','Younger siblings','Kanau / Kayung','X a'],
+['amyu','num','Kahpu a kasha','Older siblings’ children','Nam / Kanam','X a'],
+['mayu','la','Madu jan a kawa','Wife’s father','Tsa / Katsa','XI a'],
+['mayu','la','Katsa a kawa','Katsa’s father','Kaji','XI a'],
+['mayu','la','Katsa a kahpu / kanau','Katsa’s brothers','Tsa','XI a'],
+['mayu','la','Katsa a kasha','Katsa’s children','Hkau','XI a'],
+['mayu','la','Kahkau a kasha','Hkau’s children','Nam / Kanam','XI a'],
+['mayu','la','Kanu','Mother','Nu / Kanu','XI b'],
+['mayu','la','Kanu a kana / kanau','Mother’s sisters','Kanu','XI b'],
+['mayu','la','Kanu a kamoi','Mother’s kamoi','Twi / Dwi','XI b'],
+['mayu','la','Madu jan a kana','Wife’s older sister','Rat / Karat','XI b'],
+['mayu','la','Madu jan a kanu ni','Wife’s mother and her sisters','Nam / Kanam','XI b'],
+['mayu','la','Kaji a madu jan','Mayu grandfather’s wife','Twi / Dwi','XI c'],
+['mayu','la','Katsa a madu jan','Katsa’s wife','Hkawp / Ni','XI c'],
+['mayu','la','Kahkau a madu jan','Hkau’s wives','Hkawp / Ni','XI c'],
+['mayu','num','Kanu a kawa','Mother’s father','Katsa','XI a'],
+['mayu','num','Katsa a kawa','Katsa’s father','Kaji','XI a'],
+['mayu','num','Katsa a kahpu / kanau','Katsa’s brothers','Katsa','XI a'],
+['mayu','num','Katsa a kasha','Katsa’s children','Katsa','XI a'],
+['mayu','num','Kanu','Mother','Nu / Kanu','XI b'],
+['mayu','num','Kanu a kana / kanau','Mother’s sisters','Kanu','XI b'],
+['mayu','num','Kanu a kamoi','Mother’s kamoi','Twi / Dwi (Katwi)','XI b'],
+['mayu','num','Kanu a kahpu / kanau a kasha','Children of mother’s siblings','Ning / Kaning','XI b'],
+['mayu','num','Kaji a madu jan','Mayu grandfather’s wife','Twi / Dwi','XI c'],
+['mayu','num','Katsa a madu jan','Katsa’s wife','Hkawp / Ni (Kani)','XI c'],
+['yuji','la','Yuji lasha','Yuji men','Chyi / Ji','XII a'],
+['yuji','la','Yuji numsha','Yuji women','Hkawp / Ni','XII a'],
+['yuji','la','Yuji lasha a kasha (la)','Sons of yuji men','Chyi / Ji','XII b'],
+['yuji','la','Yuji lasha a kasha (num)','Daughters of yuji men','Hkawp / Ni','XII b'],
+['yuji','la','Yuji numsha a kasha (la)','Sons of yuji women','Tsa / Katsa','XII c'],
+['yuji','la','Yuji numsha a kasha (num)','Daughters of yuji women','Kanu / Karat','XII c'],
+['yuji','la','Yuji a mayu (la)','Men of yuji’s own mayu','Chyi / Ji','XII d'],
+['yuji','la','Yuji a mayu (num)','Women of yuji’s own mayu','Twi / Dwi','XII d'],
+['yuji','num','Yuji lasha','Yuji men','Chyi / Ji','XII a'],
+['yuji','num','Yuji numsha','Yuji women','Hkawp / Ni','XII a'],
+['yuji','num','Yuji lasha a kasha (la)','Sons of yuji men','Chyi / Ji','XII b'],
+['yuji','num','Yuji lasha a kasha (num)','Daughters of yuji men','Ni / Hkawp','XII b'],
+['yuji','num','Yuji numsha a kasha (la)','Sons of yuji women','Katsa','XII c'],
+['yuji','num','Yuji numsha a kasha (num)','Daughters of yuji women','Kanu / Kaning','XII c'],
+['yuji','num','Yuji a mayu (la)','Men of yuji’s own mayu','Chyi / Ji','XII d'],
+['yuji','num','Yuji a mayu (num)','Women of yuji’s own mayu','Twi / Dwi','XII d'],
+['dama','la','Kamoi a madu wa','Husband of your kamoi','Ku / Gu (Kagu)','XIII a'],
+['dama','la','Kagu a kahpu kanau','Kagu’s brothers','Ku / Gu','XIII a'],
+['dama','la','Kagu a kasha (la)','Kagu’s sons','Hkau','XIII e'],
+['dama','la','Kagu a kasha (num)','Kagu’s daughters','Hkri','XIII e'],
+['dama','la','Kahkau a kasha','Hkau’s children','Hkri / Kahkri','XIII a'],
+['dama','la','Dama numsha yawng','All dama women','Hkri / Kahkri','XIII b'],
+['dama','la','Kagu a madu jan','Kagu’s wife','Moi / Kamoi','XIII c'],
+['dama','la','Kahkau a madu jan','Hkau’s wives','Kana / Kanau / Kajan','XIII c'],
+['dama','la','Kahkri a madu jan','Kahkri men’s wives','Sha / Kasha','XIII c'],
+['dama','la','Kahkri a madu wa','Kahkri women’s husbands','Shu / Kashu','XIII d'],
+['dama','la','Kahkri numsha a kasha','Children of kahkri women','Shu / Kashu','XIII f'],
+['dama','num','Madu wa a kawa, kaji','Husband’s father and grandfather','Ku / Gu (Kagu)','XIII a'],
+['dama','num','Madu wa a kahpu','Husband’s older brothers','Ku / Gu','XIII a'],
+['dama','num','Madu wa a kanau','Husband’s younger brothers','Rat / Karat','XIII a'],
+['dama','num','Madu wa a kamoi','Husband’s kamoi','Ning / Kaning','XIII b'],
+['dama','num','Madu wa a kana, kanau','Husband’s sisters','Ning / Kaning','XIII b'],
+['dama','num','Kagu a madu jan','Kagu’s wives','Kamoi','XIII c'],
+['dama','num','Karat a madu jan','Karat’s wives','Kanau','XIII c'],
+['dama','num','Kasha, kashu a madu jan','Wives of your children and grandchildren','Nam / Kanam','XIII c'],
+['dama','num','Kaning a madu wa','Kaning’s husbands','Hkri / Kahkri','XIII d'],
+['dama','num','Kasha, kashu a madu wa','Husbands of your children and grandchildren','Hkri','XIII d'],
+['dama','num','Kagu a kasha (la)','Kagu’s sons','Ku / Gu / Rat','XIII e'],
+['dama','num','Kagu a kasha (num)','Kagu’s daughters','Ning','XIII e'],
+['dama','num','Madu wa a kahpu a kasha','Husband’s older brother’s children','Sha / Kasha','XIII e'],
+['dama','num','Karat a kasha','Karat’s children','Sha / Kasha','XIII e'],
+['dama','num','Kasha a kasha','Your grandchildren','Shu / Kashu','XIII e'],
+['dama','num','Kaning a kasha','Kaning’s children','Hkri / Kahkri','XIII f'],
+['kashu','la','Kashu lasha yawng','All kashu men','Shu / Kashu','XIV a'],
+['kashu','la','Kashu numsha yawng','All kashu women','Shu / Kashu','XIV b'],
+['kashu','num','Kashu lasha yawng','All kashu men','Shu / Kashu','XIV a'],
+['kashu','num','Kashu numsha yawng','All kashu women','Shu / Kashu','XIV b']
+];
+const S={sex:'la',group:'amyu',q:''};
+const $=s=>document.querySelector(s);
+const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=v=>v.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
+function gbtn(k){const g=GROUPS[k];return `<button type="button" class="g ${g.cls}" data-g="${k}" aria-pressed="${S.group===k}"><strong>${esc(g.name)}</strong><span>${esc(g.sub)}</span></button>`}
+function map(){
+  $('#map').innerHTML=`<div class="g empty"></div>${gbtn('amyu')}<div class="g empty"></div>
+  ${gbtn('mayu')}<div class="g me"><strong>Tinang</strong><span>You (${S.sex==='la'?'la':'num'})</span></div>${gbtn('dama')}
+  <div class="arrowrow">Brides move this way: mayu → tinang → dama</div>
+  ${gbtn('yuji')}<div class="g empty"></div>${gbtn('kashu')}`;
+  document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{S.group=b.dataset.g;S.q='';render()});
+}
+function panel(){
+  const g=GROUPS[S.group],q=norm(S.q.trim());
+  const rows=T.filter(r=>r[0]===S.group&&r[1]===S.sex).filter(r=>!q||norm(r[2]+' '+r[3]+' '+r[4]).includes(q));
+  $('#panel').innerHTML=`<h2>${esc(g.name)}</h2><p class="def">${esc(g.def)}</p>
+  <label for="find" class="step" style="display:block">Find a person</label>
+  <input type="search" id="find" placeholder="Try “father”, “katsa” or “sister”" value="${esc(S.q)}">
+  <div id="rows">${rows.length?rows.map(r=>`<div class="row"><span class="who">${esc(r[3])}<small>${esc(r[2])}</small></span><span class="term">${esc(r[4])}</span><span class="sec">Section ${esc(r[5])}</span></div>`).join(''):'<p class="def">No match in this group. Try another word, or another group on the map.</p>'}</div>`;
+  const f=$('#find');f.oninput=()=>{S.q=f.value;const pos=f.selectionStart;panel();const n=$('#find');n.focus();n.setSelectionRange(pos,pos)};
+}
+const key=v=>norm(v||'').replace(/[^a-z0-9]/g,'');
+function address(rel,M,W,mOlder){
+  let mw,wm,why,secA,secB;
+  if(rel==='family'){why='Kahpu kanau: you are treated as brother and sister.';
+    mw=mOlder?'Kanau / Kajan':'Kana';secA=mOlder?'X b: younger sisters':'X b: older sisters';
+    wm=mOlder?'Kahpu':'Kanau / Kayung';secB=mOlder?'X a: older siblings':'X a: younger siblings';}
+  else if(rel==='kahkri'){why=`Dama and kahkri: ${esc(W.n)} is from ${esc(M.n)}’s dama side, and he is from her mayu side.`;
+    mw='Hkri / Kahkri';secA='XIII b: all dama women';
+    wm='Katsa';secB='XI a: mayu men are katsa';}
+  else if(rel==='mayu'){why=`Mayu: ${esc(W.n)} is from ${esc(M.n)}’s mayu side, and he is from her dama side.`;
+    mw=mOlder?'Nam / Kanam':'Rat / Karat';secA=mOlder?'XI b: kanam':'XI b: karat';
+    wm=mOlder?'Ku / Gu (Kagu)':'Rat / Karat';secB=mOlder?'XIII a: older dama men':'XIII a: younger dama men';}
+  else return `<div class="addr"><h3>How to greet each other</h3><p style="margin:0">Your families aren’t linked by marriage yet (tsasam). Follow the greeting in section XVII: he asks <em>“Hkau gaw kadai wa rai nta?”</em> or <em>“Hkri ga kadai rai nta?”</em>, and each person says their amyu, htinggaw and shangai mying. Then you can work out the right term together.</p></div>`;
+  return `<div class="addr"><h3>How to address each other</h3><p style="margin:0 0 6px;color:var(--mute)">${why}</p>
+  <div class="call"><span>${esc(M.n)} calls ${esc(W.n)}</span><span class="t">${mw}</span><small>Section ${secA}</small></div>
+  <div class="call"><span>${esc(W.n)} calls ${esc(M.n)}</span><span class="t">${wm}</span><small>Section ${secB}</small></div></div>`;
+}
+function check(e){
+  if(e)e.preventDefault();
+  const v=id=>$('#'+id).value.trim();
+  const M={n:v('mName')||'the man',fa:v('mFA'),fh:v('mFH'),ma:v('mMA'),mh:v('mMH')};
+  const W={n:v('wName')||'the woman',fa:v('wFA'),fh:v('wFH'),ma:v('wMA'),mh:v('wMH')};
+  if(!M.fa||!M.ma||!W.fa||!W.ma){$('#mErr').textContent='Please enter both fathers’ and both mothers’ amyu (clan).';$('#mOut').innerHTML='';return}
+  $('#mErr').textContent='';
+  const same=(a,b)=>a&&b&&key(a)===key(b);
+  const stop=[],warn=[],good=[];
+  if(same(M.fa,W.fa))stop.push(`Both fathers are ${esc(M.fa)}. You are the same amyu, so you count as kahpu kanau (brother and sister). Section I.`);
+  if(same(M.fh,W.fh))stop.push(`Both fathers’ htinggaw is ${esc(M.fh)}. The booklet says to avoid marriage when the htinggaw is the same, even across different clans. Section XXIII.`);
+  if(same(M.mh,W.mh))stop.push(`Both mothers’ htinggaw is ${esc(M.mh)}. “Na nu kadai, na wa kadai”: when parents share a htinggaw, the marriage is not suitable. Section XXIII.`);
+  if(same(W.ma,M.fa))stop.push(`${esc(W.n)}’s mother is ${esc(W.ma)}, the same amyu as ${esc(M.n)}’s father. That makes her his kahkri (dama side), and a man may not marry his kahkri. Section XXIII.`);
+  if(same(M.fh,W.mh)||same(M.mh,W.fh))warn.push('One person’s father and the other’s mother share a htinggaw. The booklet warns that shared htinggaw names call for care. Ask the elders. Section XXIII.');
+  if(same(M.ma,W.fa))good.push(`${esc(M.n)}’s mother is ${esc(M.ma)}, the same amyu as ${esc(W.n)}’s father. Her family is his mayu, so the bride would come from the mayu side, in the mayu → dama direction. Section I.`);
+  const mOlder=(document.querySelector('input[name=older]:checked')||{}).value!=='w';
+  const rel=(same(M.fa,W.fa)||same(M.fh,W.fh)||same(M.mh,W.mh))?'family':same(W.ma,M.fa)?'kahkri':same(M.ma,W.fa)?'mayu':'tsasam';
+  const ad=address(rel,M,W,mOlder);
+  const out=$('#mOut');
+  if(stop.length){out.innerHTML=`<div class="verdict no"><h3>Not allowed by the booklet’s rules</h3><ul>${stop.map(x=>`<li>${x}</li>`).join('')}</ul>${warn.length?`<ul>${warn.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}</div>`+ad;return}
+  if(warn.length){out.innerHTML=`<div class="verdict warn"><h3>Ask the elders first</h3><ul>${warn.concat(good).map(x=>`<li>${x}</li>`).join('')}</ul></div>`+ad;return}
+  out.innerHTML=`<div class="verdict ok"><h3>${good.length?'A traditional match':'No rule in the booklet forbids it'}</h3><ul>${(good.length?good:[`Their families aren’t yet linked by marriage (tsasam). Before deciding, families still ask each other “Na nu kadai, na wa kadai?” and talk with the elders. Sections XVI–XVII.`]).map(x=>`<li>${x}</li>`).join('')}</ul></div>`+ad;
+}
+function render(){
+  document.querySelectorAll('[data-sex]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sex===S.sex));
+  map();panel();
+}
+$('#mForm').addEventListener('submit',check);
+$('#mClear').onclick=()=>{$('#mForm').reset();$('#mOut').innerHTML='';$('#mErr').textContent=''};
+document.querySelectorAll('[data-sex]').forEach(b=>b.onclick=()=>{S.sex=b.dataset.sex;render()});
+render();
+}
+</script>
+</body>
+</html>
