@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wunpawng Tam Tam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a quiet research library, serious and welcoming
+   IDEA: a library card catalogue: every record has a call slip of facts
+   PICTURE: the search desk itself, large, on a forest-green field with a woven diamond band
+   COLOUR and TYPE: forest green, warm cream, brass accent; Fraunces headings, Source Sans body
+   LAYOUT: green search band, subject shelves, then catalogue results with filters beside them */
+:root{color-scheme:light dark;
+--bg:light-dark(#F5EFE2,#111C16);--card:light-dark(#FFFBF3,#18271F);--ink:light-dark(#1E2A22,#ECE5D4);
+--mute:light-dark(#4A5A4F,#B3BCAF);--line:light-dark(#DDD3BF,#2C3D33);--green:light-dark(#1F3D2B,#9CC7A4);
+--band:light-dark(#1F3D2B,#0B1510);--onband:#F5EFE2;--brass:light-dark(#7A4E14,#E0B872);--soft:light-dark(#E8EFE6,#1C2E24)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 'Source Sans 3',system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;line-height:1.1;text-wrap:balance;margin:0;color:var(--green)}
+a{color:var(--green)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(4vw,16px)}
+header.top{background:var(--band);color:var(--onband)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:14px}
+.brand{font-family:Fraunces,Georgia,serif;font-size:23px;font-weight:600;color:var(--onband);text-decoration:none}
+.brand small{display:block;font:400 13px 'Source Sans 3',sans-serif;opacity:.8}
+nav.main{display:flex;gap:6px;flex-wrap:wrap}
+nav.main a{color:var(--onband);text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:600;font-size:15px}
+nav.main a[aria-current]{background:rgba(245,239,226,.14)}
+.hero{background:var(--band);color:var(--onband);padding:clamp(28px,5vw,64px) 0 0}
+.hero h1{color:var(--onband);font-size:clamp(32px,5vw,50px);max-width:16ch}
+.hero p{max-width:60ch;color:#D9E2D6;margin:14px 0 24px}
+.weave{height:22px;margin-top:clamp(28px,4vw,48px);background:repeating-linear-gradient(45deg,transparent 0 8px,#E0B872 8px 10px,transparent 10px 18px),repeating-linear-gradient(-45deg,transparent 0 8px,#B5452E 8px 10px,transparent 10px 18px);opacity:.55}
+.sbox{display:flex;gap:8px;max-width:760px}
+.sbox input{flex:1;height:54px;font-size:17px}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 14px;height:46px;width:100%}
+textarea{height:auto;padding:12px 14px;min-height:96px}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 18px;border-radius:10px;border:1px solid var(--green);background:var(--green);color:var(--bg);font:700 15px 'Source Sans 3',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.hero .btn{background:#E0B872;border-color:#E0B872;color:#1F3D2B}
+.btn.ghost{background:transparent;color:var(--green)}
+.btn.danger{background:transparent;color:light-dark(#9B2C1C,#F0A08E);border-color:currentColor}
+.band{padding:clamp(28px,4vw,56px) 0}
+.eyebrow{font-size:14px;font-weight:700;color:var(--brass);margin:0 0 6px}
+.shelves{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px}
+.shelf{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:6px}
+.shelf h3{font-size:21px}.shelf span{color:var(--mute);font-size:14.5px}
+.layout{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+aside.filters{flex:1 1 250px;max-width:320px;display:flex;flex-direction:column;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.results{flex:999 1 520px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700;color:var(--green)}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.bar select{width:auto}
+.rec{border-top:1px solid var(--line);padding:18px 0;display:flex;flex-direction:column;gap:6px}
+.rec h3{font-size:21px}.rec h3 a{text-decoration:none}.rec h3 a:hover{text-decoration:underline}
+.meta{color:var(--mute);font-size:14.5px}
+.path{font-size:13.5px;font-weight:700;color:var(--brass)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--ink);border:0;cursor:pointer;font-family:inherit}
+mark{background:light-dark(#F2DFA8,#5A4618);color:inherit;border-radius:2px}
+.slip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 20px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:20px 0}
+.slip dt{font-size:13px;color:var(--mute)}.slip dd{margin:2px 0 0;font-weight:600;overflow-wrap:anywhere}
+.cite{background:var(--soft);border-radius:12px;padding:16px;font-size:15px;overflow-wrap:anywhere}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:820px}
+.form .full{grid-column:1/-1}
+@media(max-width:600px){.form{grid-template-columns:minmax(0,1fr)}aside.filters{max-width:none}.sbox{flex-direction:column}}
+.note{background:var(--soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--mute)}
+footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding:24px 0 40px}
+.status{font-size:14px;color:var(--mute);margin-top:8px}
+.hide{display:none!important}
+@media (prefers-reduced-motion:no-preference){.rec,.shelf{transition:transform .15s}.shelf:hover{transform:translateY(-2px)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#home">Wunpawng Tam Tam<small>A Kachin research archive</small></a>
+  <nav class="main" aria-label="Main">
+    <a href="#home" data-nav="home">Home</a>
+    <a href="#search" data-nav="search">Search</a>
+    <a href="https://kachin-jinghpaw-dictionary.mickypiupiu.chatgpt.site/">Dictionary ↗</a>
+    <a href="#about" data-nav="about">About</a>
+    
+  </nav>
+</div></header>
+<main id="view"></main>
+<footer><div class="wrap">Wunpawng Tam Tam is a free community archive. Every record names its original author and source. Dictionary vocabulary and definitions: Rawang.org. · <a href="#add">Add a record (editors)</a></div></footer>
+<script>
+{
+const TAX={"Language & Literature":["Jinghpaw Language","Other Kachin Languages","Dictionaries & Grammar","Literature & Oral Tradition"],"Society & Culture":["Clans & Kinship","Marriage & Customs","Festivals & Traditions"],"History":["Kachin History","Conflict & Displacement"],"Religion":["Christianity & Churches","Traditional Beliefs"],"Human Rights":["Reports & Documentation"]};
+const TYPES=["Book","Booklet","Article","Report","Thesis","Dictionary","Document","Website","Audio / Video"];
+const LANGS=["Jinghpaw","English","Burmese","Lisu","Rawang","Lachid","Lhaovo","Zaiwa","Other"];
+const SUB_NOTE={"Language & Literature":"Jinghpaw and other Kachin languages, grammar, literature","Society & Culture":"Clans, kinship, marriage, customs and festivals","History":"Kachin history, conflict and displacement","Religion":"Churches, faith and traditional beliefs","Human Rights":"Reports and documentation"};
+const S={docs:[],loaded:false,err:'',q:'',subject:'',topic:'',lang:'',type:'',from:'',to:'',sort:'rel',out:''};
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=v=>String(v??'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
+const safeUrl=u=>/^https:\/\//i.test(u||'')?u:'';
+const opts=(arr,sel,blank)=>(blank?`<option value="">${esc(blank)}</option>`:'')+arr.map(o=>`<option${o===sel?' selected':''}>${esc(o)}</option>`).join('');
+const recs=()=>S.docs;
+const pdfPath=v=>/^pdfs\/[\w.-]+\.pdf$/i.test(v||'')?v:'';
+
+function score(r,toks){
+  if(!toks.length)return 1;
+  const F=[[r.title,6],[r.keywords,4],[r.author,3],[r.topic,2],[r.subject,2],[r.summary,1],[r.source,1]].map(([v,w])=>[norm(v),w]);
+  let s=0;
+  for(const t of toks){let hit=0;for(const [v,w] of F)if(v.includes(t))hit+=w;if(!hit)return 0;s+=hit}
+  return s;
+}
+function filtered(){
+  const toks=norm(S.q).split(/\s+/).filter(Boolean);
+  let out=recs().map(r=>({r,s:score(r,toks)})).filter(x=>x.s>0)
+    .filter(({r})=>(!S.subject||r.subject===S.subject)&&(!S.topic||r.topic===S.topic)&&(!S.lang||r.language===S.lang)&&(!S.type||r.type===S.type)
+      &&(!S.from||(+r.year||0)>=+S.from)&&(!S.to||(+r.year||9999)<=+S.to));
+  const by={rel:(a,b)=>b.s-a.s,new:(a,b)=>(+b.r.year||0)-(+a.r.year||0),old:(a,b)=>(+a.r.year||9999)-(+b.r.year||9999),title:(a,b)=>String(a.r.title).localeCompare(b.r.title)};
+  return out.sort(by[S.sort]).map(x=>x.r);
+}
+function hl(text){
+  const toks=S.q.trim().split(/\s+/).filter(t=>t.length>1);let h=esc(text);
+  for(const t of toks){const re=new RegExp('('+esc(t).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');h=h.replace(re,'<mark>$1</mark>')}
+  return h;
+}
+const metaLine=r=>[r.author,r.year||'n.d.',r.type,r.language].filter(Boolean).map(esc).join(' · ');
+const cite=r=>`${r.author||'Unknown author'} (${r.year||'n.d.'}). ${r.title}${r.type?` [${r.type}]`:''}.${r.source?' '+r.source+'.':''}${safeUrl(r.url)?' '+r.url:''}`;
+const loadNote=()=>S.err?`<p class="status">${esc(S.err)}</p>`:!S.loaded?`<p class="status">Loading the archive…</p>`:'';
+
+function home(){
+  const all=recs(),count=s=>all.filter(r=>r.subject===s).length;
+  const recent=[...all].sort((a,b)=>(b.added||0)-(a.added||0)).slice(0,4);
+  return `<section class="hero"><div class="wrap">
+    <h1>Search Kachin knowledge, by subject and source.</h1>
+    <p>Books, booklets, reports and articles about Kachin language, history and culture. Each record tells you what it contains and where it came from.</p>
+    <form class="sbox" id="homeForm" role="search"><label for="hq" class="hide">Search the archive</label>
+      <input id="hq" type="search" placeholder="Search titles, authors, keywords" value="${esc(S.q)}"><button class="btn" type="submit">Search</button></form>
+    <p class="status" style="color:#D9E2D6">${S.loaded?`${all.length} record${all.length===1?'':'s'} in the archive`:''}</p>
+  </div><div class="weave" aria-hidden="true"></div></section>
+  <section class="band"><div class="wrap">${loadNote()}
+    <p class="eyebrow">Browse by subject</p><h2 style="font-size:32px">Subject shelves</h2>
+    <div class="shelves">${Object.keys(TAX).map(s=>`<a class="shelf" href="#search" data-subject="${esc(s)}"><h3>${esc(s)}</h3><span>${esc(SUB_NOTE[s])}</span><span><strong>${count(s)}</strong> record${count(s)===1?'':'s'}</span></a>`).join('')}
+      <a class="shelf" href="https://kachin-jinghpaw-dictionary.mickypiupiu.chatgpt.site/" style="background:var(--soft)"><h3>Jinghpaw ↔ English Dictionary</h3><span>12,093 entries, searchable both ways. Source: Rawang.org.</span><span><strong>Open dictionary ↗</strong></span></a>
+    </div>
+  </div></section>
+  <section class="band" style="padding-top:0"><div class="wrap"><h2 style="font-size:28px">Recently added</h2>
+    ${recent.length?recent.map(recItem).join(''):emptyBox()}</div></section>`;
+}
+function emptyBox(){
+  return `<div class="empty" style="margin-top:14px">${S.loaded?'No records yet.':'Records will appear here.'}</div>`;
+}
+function recItem(r){
+  const kw=String(r.keywords||'').split(',').map(k=>k.trim()).filter(Boolean).slice(0,6);
+  return `<article class="rec"><span class="path">${esc(r.subject||'Uncategorized')}${r.topic?' › '+esc(r.topic):''}</span>
+    <h3><a href="#r-${esc(r.id)}">${hl(r.title||'Untitled')}</a></h3><span class="meta">${metaLine(r)}</span>
+    ${r.summary?`<p style="margin:0">${hl(String(r.summary).slice(0,260))}${String(r.summary).length>260?'…':''}</p>`:''}
+    ${kw.length?`<div class="chips">${kw.map(k=>`<button class="chip" type="button" data-kw="${esc(k)}">${esc(k)}</button>`).join('')}</div>`:''}</article>`;
+}
+function search(){
+  const res=filtered(),topics=S.subject?TAX[S.subject]:Object.values(TAX).flat();
+  return `<section class="band"><div class="wrap"><h1 style="font-size:clamp(30px,4vw,42px);margin-bottom:18px">Search the archive</h1>
+    <form class="sbox" id="sForm" role="search" style="margin-bottom:24px"><label for="sq" class="hide">Keywords</label><input id="sq" type="search" placeholder="Search titles, authors, keywords" value="${esc(S.q)}"><button class="btn" type="submit">Search</button></form>
+    <div class="layout"><aside class="filters" aria-label="Filters">
+      <label class="f">Subject<select id="fSubject">${opts(Object.keys(TAX),S.subject,'All subjects')}</select></label>
+      <label class="f">Topic<select id="fTopic">${opts(topics,S.topic,'All topics')}</select></label>
+      <label class="f">Language<select id="fLang">${opts(LANGS,S.lang,'All languages')}</select></label>
+      <label class="f">Resource type<select id="fType">${opts(TYPES,S.type,'All types')}</select></label>
+      <div class="row2"><label class="f">From year<input id="fFrom" inputmode="numeric" value="${esc(S.from)}" placeholder="1900"></label><label class="f">To year<input id="fTo" inputmode="numeric" value="${esc(S.to)}" placeholder="2026"></label></div>
+      <button class="btn ghost" type="button" id="clear">Clear filters</button></aside>
+    <div class="results"><div class="bar"><strong aria-live="polite">${res.length} result${res.length===1?'':'s'}${S.q?` for “${esc(S.q)}”`:''}</strong>
+      <label class="f" style="flex-direction:row;align-items:center">Sort<select id="fSort">${[['rel','Relevance'],['new','Newest first'],['old','Oldest first'],['title','Title A–Z']].map(([v,l])=>`<option value="${v}"${S.sort===v?' selected':''}>${l}</option>`).join('')}</select></label></div>
+      ${loadNote()}${res.length?res.map(recItem).join(''):(S.loaded&&recs().length?`<div class="empty">No records match. Try fewer words or clear a filter.</div>`:emptyBox())}
+    </div></div></div></section>`;
+}
+function detail(id){
+  const r=recs().find(x=>x.id===id);
+  if(!r)return `<section class="band"><div class="wrap">${loadNote()}<div class="empty">${S.loaded?'This record isn’t in the archive.':'Loading record…'} <a href="#search">Back to search</a></div></div></section>`;
+  const pdf=pdfPath(r.pdf),src=safeUrl(r.url);
+  return `<section class="band"><div class="wrap" style="max-width:860px">
+    <p class="meta"><a href="#search">Search</a> / ${esc(r.subject||'')}${r.topic?' / '+esc(r.topic):''}</p>
+    <h1 style="font-size:clamp(30px,4.5vw,44px);margin-top:10px">${esc(r.title)}</h1>
+    <p class="meta" style="font-size:17px;margin-top:8px">${esc(r.author||'Unknown author')}</p>
+    <div class="actions">${pdf?`<a class="btn" href="${pdf}">Read PDF</a>`:''}${src?`<a class="btn${pdf?' ghost':''}" href="${esc(src)}">Visit Source ↗</a>`:''}<button class="btn ghost" type="button" id="copyLink">Copy link to this record</button></div>
+    <dl class="slip">${[['Author / organization',r.author],['Year',r.year||'Unknown'],['Language',r.language],['Type',r.type],['Subject',r.subject],['Topic',r.topic],['Source',r.source]].filter(x=>x[1]).map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+    ${r.summary?`<h2 style="font-size:24px">Summary</h2><p style="white-space:pre-line">${esc(r.summary)}</p>`:''}
+    ${r.contents?`<h2 style="font-size:24px;margin-top:20px">Contents</h2><p style="white-space:pre-line">${esc(r.contents)}</p>`:''}
+    ${r.permission?`<p class="note"><strong>Rights:</strong> ${esc(r.permission)}</p>`:''}
+    <h2 style="font-size:24px;margin-top:24px">Cite this</h2><p class="cite" id="citeText">${esc(cite(r))}</p><button class="btn ghost" type="button" id="copyCite">Copy citation</button>
+    <span class="status" id="copied" role="status"></span>
+  </div></section>`;
+}
+function form(){
+  const f=(id,label,extra='',ph='')=>`<label class="f ${extra}">${label}<input id="${id}" placeholder="${ph}"></label>`;
+  return `<section class="band"><div class="wrap"><h1 style="font-size:clamp(30px,4vw,42px);margin-bottom:8px">Add a record</h1>
+    <p class="meta" style="margin:0 0 22px">For editors. Fill this in, press <strong>Make record</strong>, then copy the result into <code>data/resources.json</code> on GitHub. Put PDFs in the <code>pdfs</code> folder.</p>
+    <form class="form" id="recForm">
+      ${f('xTitle','Title *','full')}${f('xAuthor','Author or organization')}${f('xYear','Year')}
+      <label class="f">Subject *<select id="xSubject">${opts(Object.keys(TAX),'','Choose…')}</select></label>
+      <label class="f">Topic<select id="xTopic">${opts(Object.values(TAX).flat(),'','Choose…')}</select></label>
+      <label class="f">Language<select id="xLang">${opts(LANGS,'','Choose…')}</select></label>
+      <label class="f">Type<select id="xType">${opts(TYPES,'','Choose…')}</select></label>
+      <label class="f full">Summary<textarea id="xSummary"></textarea></label>
+      <label class="f full">Contents (one section per line, e.g. “1. Clan names — p. 4”)<textarea id="xContents"></textarea></label>
+      ${f('xKeywords','Keywords (comma separated)','full')}${f('xSource','Source (publisher, site or collection)')}${f('xUrl','Source link','','https://…')}
+      ${f('xPdf','PDF file in the pdfs folder','','pdfs/booklet-name.pdf')}${f('xPerm','Rights / permission note')}
+      <div class="actions full"><button class="btn" type="submit">Make record</button><a class="btn ghost" href="#search">Cancel</a></div>
+      <p class="status full" role="status" id="formMsg"></p>
+      <div class="full ${S.out?'':'hide'}" id="outBox"><label class="f">Copy this into data/resources.json<textarea id="outText" readonly style="min-height:220px;font-family:ui-monospace,monospace;font-size:14px">${esc(S.out)}</textarea></label>
+        <div class="actions"><button class="btn ghost" type="button" id="copyOut">Copy record</button></div><span class="status" id="copied" role="status"></span></div>
+    </form></div></section>`;
+}
+function about(){
+  return `<section class="band"><div class="wrap" style="max-width:760px"><h1 style="font-size:clamp(30px,4vw,42px)">About Wunpawng Tam Tam</h1>
+    <p>“Tam” means to look for. This archive helps anyone, from students and researchers to families, find documented knowledge about the Kachin (Wunpawng) peoples in one place.</p>
+    <p>Records are organized by subject and topic. Each one lists its author, language, date and original source, so readers can judge it and cite it properly. The archive is free, with no ads or sign-up.</p>
+    <p class="note">Materials are shared with credit to their creators. If you hold the rights to something here and want it changed or removed, please contact the archive.</p></div></section>`;
+}
+function render(){
+  const h=location.hash.slice(1)||'home';
+  const v=h.startsWith('r-')?'detail':['home','search','add','about'].includes(h)?h:'home';
+  document.querySelectorAll('[data-nav]').forEach(a=>a.toggleAttribute('aria-current',a.dataset.nav===v));
+  const view=$('#view');
+  view.innerHTML=v==='home'?home():v==='search'?search():v==='detail'?detail(h.slice(2)):v==='add'?form():about();
+  bind(v);
+}
+function go(hash){if(location.hash==='#'+hash)render();else location.hash=hash}
+function bind(v){
+  const on=(sel,ev,fn)=>{const el=$(sel);if(el)el.addEventListener(ev,fn)};
+  on('#homeForm','submit',e=>{e.preventDefault();S.q=$('#hq').value;go('search')});
+  on('#sForm','submit',e=>{e.preventDefault();S.q=$('#sq').value;render()});
+  document.querySelectorAll('[data-subject]').forEach(a=>a.addEventListener('click',()=>{S.subject=a.dataset.subject;S.topic='';}));
+  document.querySelectorAll('[data-kw]').forEach(b=>b.addEventListener('click',()=>{S.q=b.dataset.kw;go('search')}));
+  const sel=(id,key,reset)=>on(id,'change',e=>{S[key]=e.target.value;if(reset)S.topic='';render()});
+  sel('#fSubject','subject',true);sel('#fTopic','topic');sel('#fLang','lang');sel('#fType','type');sel('#fSort','sort');
+  sel('#fFrom','from');sel('#fTo','to');
+  on('#clear','click',()=>{Object.assign(S,{subject:'',topic:'',lang:'',type:'',from:'',to:''});render()});
+  const copy=(btn,text,label)=>on(btn,'click',async()=>{try{await navigator.clipboard.writeText(text);$('#copied').textContent=label}catch(e){$('#copied').textContent='Couldn’t copy. Select the text and copy it instead.'}});
+  if(v==='detail'){const r=recs().find(x=>'r-'+x.id===location.hash.slice(1));if(r){copy('#copyCite',cite(r),'Citation copied.');copy('#copyLink',location.href,'Link copied.')}}
+  on('#xSubject','change',e=>{const t=$('#xTopic');t.innerHTML=opts(TAX[e.target.value]||[],'','Choose…')});
+  on('#recForm','submit',save);
+  on('#copyOut','click',async()=>{try{await navigator.clipboard.writeText($('#outText').value);$('#copied').textContent='Copied.'}catch(e){$('#outText').select();$('#copied').textContent='Press Ctrl+C (or ⌘C) to copy.'}});
+}
+function save(e){
+  e.preventDefault();
+  const val=id=>$(id).value.trim();
+  const data={id:'',title:val('#xTitle'),author:val('#xAuthor'),year:val('#xYear'),subject:val('#xSubject'),topic:val('#xTopic'),language:val('#xLang'),type:val('#xType'),
+    summary:val('#xSummary'),contents:val('#xContents'),keywords:val('#xKeywords'),source:val('#xSource'),url:val('#xUrl'),pdf:val('#xPdf'),permission:val('#xPerm'),added:new Date().toISOString().slice(0,10)};
+  const msg=$('#formMsg');
+  if(!data.title||!data.subject){msg.textContent='Please add a title and choose a subject.';return}
+  if(data.url&&!safeUrl(data.url)){msg.textContent='The source link must start with https://';return}
+  if(data.pdf&&!pdfPath(data.pdf)){msg.textContent='The PDF should look like pdfs/file-name.pdf (letters, numbers, dashes).';return}
+  data.id=norm(data.title).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||('record-'+Date.now());
+  msg.textContent='';$('#outBox').classList.remove('hide');$('#outText').value=JSON.stringify(data,null,2)+',';
+}
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
+render();
+fetch('data/resources.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})
+  .then(d=>{S.docs=(Array.isArray(d)?d:[]).filter(x=>x&&x.id&&x.title);S.loaded=true;render()})
+  .catch(()=>{S.loaded=true;S.err='The archive data couldn’t be loaded. Please try again later.';render()});
+}
+</script>
+</body>
+</html>
