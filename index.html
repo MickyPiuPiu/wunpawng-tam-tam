@@ -39,12 +39,14 @@ input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:va
 textarea{height:auto;padding:12px 14px;min-height:96px}
 :focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 18px;border-radius:10px;border:1px solid var(--green);background:var(--green);color:var(--bg);font:700 15px 'Source Sans 3',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
-.promo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:760px;margin-top:18px;background:#FFFBF3;color:#1E2A22;border-radius:14px;padding:14px 18px;text-decoration:none}
-.promo .heart{font-size:26px;color:#B5452E;line-height:1}
-.promo div{flex:1 1 220px}.promo strong{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:19px;color:#1F3D2B}
-.promo span.sub{font-size:15px;color:#4A5A4F}
-.promo .go{font-weight:700;color:#1F3D2B;white-space:nowrap}
-.promo:hover .go{text-decoration:underline}
+.promo{display:block;max-width:760px;margin-top:18px;background:#9E3524;border-radius:14px;overflow:hidden;text-decoration:none}
+.promo::before,.promo::after{content:"";display:block;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Crect width='36' height='12' fill='%237E2A1C'/%3E%3Cpolygon points='9,1.5 14.5,6 9,10.5 3.5,6' fill='%231F3D2B'/%3E%3Cpolygon points='9,4 11,6 9,8 7,6' fill='%23E0B872'/%3E%3Cpolyline points='18,10 22.5,2 27,10 31.5,2 36,10' fill='none' stroke='%23E0B872' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x}
+.promo .in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 18px}
+.promo .heart{font-size:26px;color:#E0B872;line-height:1}
+.promo .txt{flex:1 1 220px}.promo strong{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:19px;color:#FFF6E6}
+.promo span.sub{font-size:15px;color:#F6DCCB}
+.promo .go{display:flex;align-items:center;gap:6px;font-weight:700;color:#E0B872;white-space:nowrap}
+.promo:hover .go span{text-decoration:underline}
 .hero .btn{background:#E0B872;border-color:#E0B872;color:#1F3D2B}
 .btn.ghost{background:transparent;color:var(--green)}
 .btn.danger{background:transparent;color:light-dark(#9B2C1C,#F0A08E);border-color:currentColor}
@@ -143,7 +145,7 @@ function home(){
     <p>Books, booklets, reports and articles about Kachin language, history and culture. Each record tells you what it contains and where it came from.</p>
     <form class="sbox" id="homeForm" role="search"><label for="hq" class="hide">Search the archive</label>
       <input id="hq" type="search" placeholder="Search titles, authors, keywords" value="${esc(S.q)}"><button class="btn" type="submit">Search</button></form>
-    <a class="promo" href="shachyen.html"><span class="heart" aria-hidden="true">♥</span><div><strong>New: Shachyen Shaga Tool</strong><span class="sub">Find what to call a relative and check if a marriage is allowed.</span></div><span class="go">Try it →</span></a>
+    <a class="promo" href="shachyen.html"><div class="in"><span class="heart" aria-hidden="true">♥</span><div class="txt"><strong>New: Shachyen Shaga Tool</strong><span class="sub">Find what to call a relative and check if a marriage is allowed.</span></div><span class="go"><svg width="48" height="48" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 30 C10 22 6 34 14 38 C8 42 16 48 24 40Z" fill="#F6EEDD" stroke="#C9B48A" stroke-width="1.2"/><path d="M42 30 C54 22 58 34 50 38 C56 42 48 48 40 40Z" fill="#F6EEDD" stroke="#C9B48A" stroke-width="1.2"/><circle cx="32" cy="22" r="7" fill="#E9B98E"/><path d="M26 20 C27 13 37 13 38 20 C36 17 28 17 26 20Z" fill="#7A4E14"/><ellipse cx="32" cy="38" rx="9" ry="10" fill="#E9B98E"/><path d="M23 40 C27 46 37 46 41 40 L40 44 C36 48 28 48 24 44Z" fill="#FFFFFF" stroke="#C9B48A" stroke-width="0.8"/><path d="M14 18 Q4 34 14 50" fill="none" stroke="#5A3A10" stroke-width="2"/><line x1="14" y1="18" x2="14" y2="50" stroke="#5A3A10" stroke-width="0.8"/><line x1="12" y1="34" x2="40" y2="34" stroke="#5A3A10" stroke-width="1.6"/><path d="M40 34 l6 -3.2 -1.6 3.2 1.6 3.2Z" fill="#E0B872"/></svg><span>Try it →</span></span></div></a>
     <p class="status" style="color:#D9E2D6">${S.loaded?`${all.length} record${all.length===1?'':'s'} in the archive`:''}</p>
   </div><div class="weave" aria-hidden="true"></div></section>
   <section class="band"><div class="wrap">${loadNote()}
