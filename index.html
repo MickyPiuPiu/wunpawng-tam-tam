@@ -39,6 +39,12 @@ input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:va
 textarea{height:auto;padding:12px 14px;min-height:96px}
 :focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 18px;border-radius:10px;border:1px solid var(--green);background:var(--green);color:var(--bg);font:700 15px 'Source Sans 3',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.promo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:760px;margin-top:18px;background:#FFFBF3;color:#1E2A22;border-radius:14px;padding:14px 18px;text-decoration:none}
+.promo .heart{font-size:26px;color:#B5452E;line-height:1}
+.promo div{flex:1 1 220px}.promo strong{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:19px;color:#1F3D2B}
+.promo span.sub{font-size:15px;color:#4A5A4F}
+.promo .go{font-weight:700;color:#1F3D2B;white-space:nowrap}
+.promo:hover .go{text-decoration:underline}
 .hero .btn{background:#E0B872;border-color:#E0B872;color:#1F3D2B}
 .btn.ghost{background:transparent;color:var(--green)}
 .btn.danger{background:transparent;color:light-dark(#9B2C1C,#F0A08E);border-color:currentColor}
@@ -137,6 +143,7 @@ function home(){
     <p>Books, booklets, reports and articles about Kachin language, history and culture. Each record tells you what it contains and where it came from.</p>
     <form class="sbox" id="homeForm" role="search"><label for="hq" class="hide">Search the archive</label>
       <input id="hq" type="search" placeholder="Search titles, authors, keywords" value="${esc(S.q)}"><button class="btn" type="submit">Search</button></form>
+    <a class="promo" href="shachyen.html"><span class="heart" aria-hidden="true">♥</span><div><strong>New: Shachyen Shaga Tool</strong><span class="sub">Find what to call a relative and check if a marriage is allowed.</span></div><span class="go">Try it →</span></a>
     <p class="status" style="color:#D9E2D6">${S.loaded?`${all.length} record${all.length===1?'':'s'} in the archive`:''}</p>
   </div><div class="weave" aria-hidden="true"></div></section>
   <section class="band"><div class="wrap">${loadNote()}
