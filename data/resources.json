@@ -70,5 +70,23 @@
     "pdf": "pdfs/rawt-malan-labau.pdf",
     "permission": "",
     "added": "2026-11-24"
+  },
+  {
+    "id": "kachinlingo",
+    "title": "KachinLingo",
+    "author": "KachinLingo Team",
+    "year": "",
+    "subject": "Language & Literature",
+    "topic": "Apps & Learning Sites",
+    "language": "Jinghpaw",
+    "type": "Website",
+    "summary": "An online platform for learning Kachin (Jinghpaw), with daily lessons, vocabulary practice by category, games, a dictionary, an alphabet guide and short stories.",
+    "contents": "",
+    "keywords": "learn Jinghpaw, lessons, vocabulary, alphabet, language learning",
+    "source": "KachinLingo",
+    "url": "https://www.kachinlingo.com/",
+    "pdf": "",
+    "permission": "",
+    "added": "2026-11-24"
   }
 ]
