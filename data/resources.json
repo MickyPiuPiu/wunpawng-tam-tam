@@ -178,5 +178,41 @@
     "pdf": "",
     "permission": "",
     "added": "2026-11-25"
+  },
+  {
+    "id": "legal-aid-network",
+    "title": "Legal Aid Network (LAN)",
+    "author": "Legal Aid Network",
+    "year": "",
+    "subject": "Organisations",
+    "topic": "Advocacy & Human Rights",
+    "language": "English",
+    "type": "Website",
+    "summary": "An independent organization promoting the rule of law and legal literacy in Burma's ethnic communities. It supports activists, civil society groups and lawyers working on human rights, runs the Federal Law Academy, and publishes reports, statements and diplomatic briefings on Burma.",
+    "contents": "",
+    "keywords": "legal aid, rule of law, human rights, Burma, federalism, reports, Federal Law Academy",
+    "source": "Legal Aid Network",
+    "url": "https://legalaidnetwork.org/",
+    "pdf": "",
+    "permission": "",
+    "added": "2026-11-25"
+  },
+  {
+    "id": "federal-law-academy",
+    "title": "Federal Law Academy",
+    "author": "Federal Law Academy, Mai Ja Yang (listed on the Legal Aid Network website)",
+    "year": "2014",
+    "subject": "Organisations",
+    "topic": "Schools & Education",
+    "language": "English",
+    "type": "Website",
+    "summary": "A legal education institution founded in 2014 in Mai Ja Yang, Kachin State. It trains young people and civil society leaders in federalism, human rights, the rule of law and ethnic self-determination, and offers a two-year Diploma in Law. In January 2025, it announced a draft federal constitution.",
+    "contents": "",
+    "keywords": "Federal Law Academy, Mai Ja Yang, law school, federalism, human rights, Diploma in Law, Kachin State",
+    "source": "Legal Aid Network",
+    "url": "https://legalaidnetwork.org/federal-law-academy-introduction/",
+    "pdf": "",
+    "permission": "",
+    "added": "2026-11-25"
   }
 ]
