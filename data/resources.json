@@ -52,5 +52,23 @@
     "pdf": "pdfs/a-grammar-of-the-kachin-language.pdf",
     "permission": "Public domain (listed as not in copyright)",
     "added": "2026-11-24"
+  },
+  {
+    "id": "rawt-malan-labau",
+    "title": "Rawt Malan Labau",
+    "author": "Du Up Daju Zau Bug Htan (compiled from the writings of Lamung Tu Jai)",
+    "year": "2006",
+    "subject": "History",
+    "topic": "Kachin History",
+    "language": "Jinghpaw",
+    "type": "Document",
+    "summary": "A Jinghpaw-language history of the Kachin revolution, covering resistance to British colonial rule from 1885, earlier conflicts with Burmese kings, the goals of the Wunpawng nation, and the founding of the KIC and KIO.",
+    "contents": "",
+    "keywords": "Rawt Malan, revolution, KIO, KIC, Wunpawng history, Lamung Tu Jai",
+    "source": "",
+    "url": "",
+    "pdf": "pdfs/rawt-malan-labau.pdf",
+    "permission": "",
+    "added": "2026-11-24"
   }
 ]
