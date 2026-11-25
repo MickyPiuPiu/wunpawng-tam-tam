@@ -234,5 +234,23 @@
     "permission": "",
     "tool": "shachyen.html",
     "added": "2026-11-25"
+  },
+  {
+    "id": "kachinpedia",
+    "title": "Kachinpedia",
+    "author": "Kachinpedia team (volunteers)",
+    "year": "",
+    "subject": "Apps & Learning Sites",
+    "topic": "Encyclopedias & References",
+    "language": "Jinghpaw",
+    "type": "Website",
+    "summary": "A community-supported digital archive and encyclopedia of Kachin history, culture, language and faith, with hundreds of Jinghpaw articles, a Jinghpaw–English–Burmese dictionary, the Jinghpaw Bible and hymns.",
+    "contents": "",
+    "keywords": "Kachinpedia, encyclopedia, articles, dictionary, Labau, Htunghking, Maumwi, Bible, hymns",
+    "source": "Kachinpedia",
+    "url": "https://www.kachinpedia.com/",
+    "pdf": "",
+    "permission": "",
+    "added": "2026-11-25"
   }
 ]

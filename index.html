@@ -92,7 +92,7 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
 <footer><div class="wrap">Wunpawng Tam Tam is a free community archive. Every record names its original author and source. Dictionary vocabulary and definitions: Rawang.org. · <a href="#add">Add a record (editors)</a></div></footer>
 <script>
 {
-const TAX={"Language & Literature":["Jinghpaw Language","Other Kachin Languages","Dictionaries & Grammar","Literature & Oral Tradition"],"Society & Culture":["Clans & Kinship","Marriage & Customs","Festivals & Traditions"],"History":["Kachin History","Conflict & Displacement"],"Religion":["Christianity & Churches","Traditional Beliefs"],"Human Rights":["Reports & Documentation"],"Apps & Learning Sites":["Language Learning","Other Tools"],"Organisations":["Advocacy & Human Rights","Churches & Religious Groups","Community Associations"],"Schools & Education":["Theological Schools","Law & Higher Education","Community & Language Schools"]};
+const TAX={"Language & Literature":["Jinghpaw Language","Other Kachin Languages","Dictionaries & Grammar","Literature & Oral Tradition"],"Society & Culture":["Clans & Kinship","Marriage & Customs","Festivals & Traditions"],"History":["Kachin History","Conflict & Displacement"],"Religion":["Christianity & Churches","Traditional Beliefs"],"Human Rights":["Reports & Documentation"],"Apps & Learning Sites":["Language Learning","Other Tools","Encyclopedias & References"],"Organisations":["Advocacy & Human Rights","Churches & Religious Groups","Community Associations"],"Schools & Education":["Theological Schools","Law & Higher Education","Community & Language Schools"]};
 const TYPES=["Book","Booklet","Article","Report","Thesis","Dictionary","Document","Website","Audio / Video"];
 const LANGS=["Jinghpaw","English","Burmese","Lisu","Rawang","Lachid","Lhaovo","Zaiwa","Other"];
 const SUB_NOTE={"Language & Literature":"Jinghpaw and other Kachin languages, grammar, literature","Society & Culture":"Clans, kinship, marriage, customs and festivals","History":"Kachin history, conflict and displacement","Religion":"Churches, faith and traditional beliefs","Human Rights":"Reports and documentation","Apps & Learning Sites":"Apps, websites and online tools for learning about Kachin language and culture","Organisations":"Kachin advocacy groups, churches and community associations","Schools & Education":"Kachin schools, colleges and education programs"};
@@ -145,6 +145,7 @@ function home(){
       <a class="shelf" href="https://kachin-jinghpaw-dictionary.mickypiupiu.chatgpt.site/" style="background:var(--soft)"><h3>Jinghpaw ↔ English Dictionary</h3><span>12,093 entries, searchable both ways. Source: Rawang.org.</span><span><strong>Open dictionary ↗</strong></span></a>
       <a class="shelf" href="shachyen.html" style="background:var(--soft)"><h3>Shachyen Shaga Hkrang</h3><span>Find what to call a relative, and check if a marriage is allowed.</span><span><strong>Open tool ♥</strong></span></a>
     </div>
+    <p class="meta" style="margin:14px 0 0">Need more words? <a href="https://www.kachinpedia.com/">Try Kachinpedia’s dictionary (29,856+ words) ↗</a></p>
   </div></section>
   <section class="band" style="padding-top:0"><div class="wrap"><h2 style="font-size:28px">Recently added</h2>
     ${recent.length?recent.map(recItem).join(''):emptyBox()}</div></section>`;
