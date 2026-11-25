@@ -34,5 +34,23 @@
     "pdf": "",
     "permission": "Original vocabulary and definitions: Rawang.org. Permission requested.",
     "added": "2026-11-24"
+  },
+  {
+    "id": "a-grammar-of-the-kachin-language",
+    "title": "A Grammar of the Kachin Language",
+    "author": "Ola Hanson",
+    "year": "1896",
+    "subject": "Language & Literature",
+    "topic": "Dictionaries & Grammar",
+    "language": "English",
+    "type": "Book",
+    "summary": "An early grammar of the Jinghpaw (Kachin) language, written in English for learners. Hanson also created the Latin-based Jinghpaw writing system, which makes this a key historical source.",
+    "contents": "",
+    "keywords": "grammar, Jinghpaw, Ola Hanson, Kachin language, missionary",
+    "source": "Internet Archive (digitized from the University of Michigan library)",
+    "url": "https://archive.org/details/agrammarkachinl00hansgoog",
+    "pdf": "",
+    "permission": "Public domain (listed as not in copyright)",
+    "added": "2026-11-24"
   }
 ]
